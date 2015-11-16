@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  get 'storefront/all_items'
+  devise_for :users
+  root 'storefront#all_items'
 
-  get 'storefront/items_by_category'
+  get 'by_category' => 'storefront#items_by_category'
 
-  get 'storefront/items_by_brand'
+  get 'by_brand' => 'storefront#items_by_brand'
 
   resources :products
   # The priority is based upon order of creation: first created -> highest priority.
