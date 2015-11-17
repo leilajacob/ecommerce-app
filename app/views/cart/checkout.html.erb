@@ -4,7 +4,7 @@
 <div>
 	<% @order.order_items.each do |k,v| %>
 		<ul>
-			<li><%= Product.find(k) %> - <%= v %></li>
+			<li><%= Product.find(k).name %> - <%= v %></li>
 		</ul>
 	<% end %>
 
