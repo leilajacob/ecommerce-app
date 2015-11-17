@@ -1,3 +1,5 @@
+<% if can? :update, @product %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Products</h1>
@@ -39,3 +41,7 @@
 <br>
 
 <%= link_to 'New Product', new_product_path %>
+<% else %>
+  <%= render 'notallowed' %>
+
+<% end %>
