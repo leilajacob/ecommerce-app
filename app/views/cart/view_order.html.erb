@@ -1,2 +1,21 @@
-<h1>Cart#view_order</h1>
-<p>Find me in app/views/cart/view_order.html.erb</p>
+<h1>My Cart</h1>
+
+<div>
+	<% @line_items.each do |line_item| %>
+		<ul>
+			<!-- name of product -->
+			<li><%= line_item.product.name %></li>
+			<!-- price of each product -->
+			<li><%= number_to_currency line_item.product.price %>/ea.</li>
+			<!-- amount of product -->
+			<li>Qty: <%= line_item.quantity %></li>
+			<!-- subtotal -->
+			<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
+		</ul>
+	<% end %> 
+</div>
+
+<div>
+	<p><%= link_to "Continue Shopping", root_path, class: "btn btn-info" %></p>
+	<p><%= link_to "Proceed to Checkout", checkout_path, class: "btn btn-success" %></p>
+</div>

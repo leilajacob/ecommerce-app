@@ -1,2 +1,23 @@
-<h1>Cart#checkout</h1>
-<p>Find me in app/views/cart/checkout.html.erb</p>
+<h1>Thank you for shopping with us!</h1>
+<p>Please review your order:</p>
+
+<div>
+	<% @order.order_items.each do |k,v| %>
+		<ul>
+			<li><%= Product.find(k) %> - <%= v %></li>
+		</ul>
+	<% end %>
+
+	<p>
+		Subtotal: <%= number_to_currency @order.subtotal %>
+	</p>
+	<p>
+		Sales Tax: + <%= number_to_currency @order.sales_tax %>
+	</p>	
+	<p>
+	         -----------
+	</p>
+	<p>
+		Grand Total: <%= number_to_currency @order.grand_total %>
+	</p>
+</div>
