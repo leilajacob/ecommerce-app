@@ -3,6 +3,10 @@ class CartController < ApplicationController
 	before_filter :authenticate_user!, except: [:add_to_cart, :view_order]
 
   def add_to_cart
+  	product = Product.find(params[:product_id])
+  	if product.quantity < params[:quantity].to_i
+  		redirect_to product, notice: "Not enough quantity in stock."
+  	else
 
   	line_item = LineItem.new
   	line_item.product_id = params[:product_id].to_i
@@ -13,6 +17,8 @@ class CartController < ApplicationController
   	line_item.save 
 
   	redirect_to view_order_path
+
+  	end 
   end
 
   def view_order
