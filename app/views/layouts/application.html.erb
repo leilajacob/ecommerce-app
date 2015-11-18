@@ -41,7 +41,7 @@
 
         <li>
           <%= link_to view_order_path do %>
-            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <p>View Cart</p>
             <% if @line_items.count != 0 %>
               <span class="badge badge-notify"><%= @line_items.count %></span>
             <% end %>

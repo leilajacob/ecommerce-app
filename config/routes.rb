@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'remove_from_cart' => 'cart#remove_from_cart'
 
+  post 'order_complete' => 'cart#order_complete'
+
   resources :orders
   resources :line_items
   devise_for :users
