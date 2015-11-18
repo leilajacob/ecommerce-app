@@ -29,6 +29,18 @@
 
       </div>
       <div class="modal-footer">
+        <% if product.quantity > 0 %>
+        <p>
+          <%= form_tag(add_to_cart_path, class: "form-inline") do %>
+            <%= number_field_tag :quantity, nil, min: 1, placeholder: "How Many?" %>
+            <%= hidden_field_tag :product_id, product.id %>
+            <%= submit_tag "Add to Cart", class: "btn btn-success" %>
+          <% end %>
+        </p>
+        <% end %>
+
+
+
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <%= link_to "More About #{product.name}", product, class: "btn btn-primary" %>
       </div>

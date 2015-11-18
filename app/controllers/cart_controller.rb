@@ -4,13 +4,20 @@ class CartController < ApplicationController
 
   def add_to_cart
   	product = Product.find(params[:product_id])
-  	if product.quantity < params[:quantity].to_i
+  	if product.quantity < params[:qty].to_i
   		redirect_to product, notice: "Not enough quantity in stock."
   	else
 
-  	line_item = LineItem.new
-  	line_item.product_id = params[:product_id].to_i
-  	line_item.quantity = params[:quantity]
+    	line_item = LineItem.new
+    	line_item.product_id = params[:product_id].to_i
+    	line_item.quantity = params[:qty]
+
+    if user_signed_in?
+      line_item.customer_key = current_user.id
+    else
+      line_item.customer_key = remote_ip
+    end 
+
   	line_item.save
 
   	line_item.line_item_total = line_item.quantity * line_item.product.price
@@ -21,8 +28,30 @@ class CartController < ApplicationController
   	end 
   end
 
+  def remove_from_cart
+    LineItem.find(params[:id]).destroy
+
+    redirect_to view_order_path
+  end
+
+  def edit_line_item
+    line_item = LineItem.find(params[:id])
+
+    if Product.find(line_item.product_id).quantity < params[:qty].to_i
+      redirect_to view_order_path, notice: "Not enough quantity in stock." 
+    else
+      line_item.quantity = params[:qty].to_i
+      line_item.save
+      redirect_to view_order_path
+    end
+  end
+
   def view_order
-  	@line_items = LineItem.all
+    if user_signed_in? 
+  	 @line_items = LineItem.where(customer_key: current_user.id.to_s)
+    else
+      @line_items = LineItem.where(customer_key: remote_ip)
+    end
   end
 
   def checkout
@@ -47,13 +76,7 @@ class CartController < ApplicationController
   		line_item.product.save
   	end
 
-  	LineItem.destroy_all
-  end
-
-  def remove_from_cart
-  	LineItem.find(params[:id]).destroy
-
-  	redirect_to view_order_path
+  	@line_items.destroy_all
   end
 
   def order_complete

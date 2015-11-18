@@ -1,7 +1,7 @@
 <h1>My Cart</h1>
 
-<div>
-	<% if @line_items.count == 0 %>
+<div class="row">
+	<% if @line_items.empty? %>
 		<h3> There's nothing here yet. </h3>
 	<% else %>
 		<% @line_items.each do |line_item| %>
@@ -11,11 +11,37 @@
 				<!-- price of each product -->
 				<li><%= number_to_currency line_item.product.price %>/ea.</li>
 				<!-- amount of product -->
-				<li>Qty: <%= line_item.quantity %></li>
+				<div id="current-quantity-<%= line_item.id %>">
+					<li>Qty: <%= line_item.quantity %></li>
+				</div> 
+
+				<p id="notice"><%= notice %></p>
+
+				<div id="change-quantity-<%= line_item.id %>" class="invisible">
+					<%= form_tag(edit_line_item_path, class: "inline-form") do %>
+						<%= number_field_tag :quantity, line_item.quantity %>
+						<%= hidden_field_tag :id, line_item.id %>
+						<%= submit_tag "Change Quantity", class: "btn btn-sm btn-warning" %> 
+					<% end %>
+				</div>
 				<!-- subtotal -->
 				<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
+
+				<p>
+					<a href="#" id="edit_qty_<%= line_item.id %>"> Edit Quantity</a> 
+				</p>
+
+
 				<li><%= link_to "Remove from Cart", remove_from_cart_path(id: line_item.id) %></li>
 			</ul>
+			<script>
+				$(document).ready(function(){
+					$('edit_qty_<%= line_item.id %>').click(function(){
+						$('#current-quantity)-<%= line_item.id %>').addClass('invisible');
+						$('#change-quantity)-<%= line_item.id %>').removeClass('invisible');
+					});
+				});
+			</script>
 		<% end %> 
 	<% end %> 
 </div>

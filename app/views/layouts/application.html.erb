@@ -42,8 +42,8 @@
         <li>
           <%= link_to view_order_path do %>
             <p>View Cart</p>
-            <% if @line_items.count != 0 %>
-              <span class="badge badge-notify"><%= @line_items.count %></span>
+            <% if @cart_items.count != 0 %>
+              <span class="badge badge-notify"><%= @cart_items.count %></span>
             <% end %>
           <% end %>
         </li>
