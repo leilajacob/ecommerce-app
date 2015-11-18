@@ -15,6 +15,8 @@
  */
 @import "bootstrap";
 @import "bootstrap-sprockets";
+@import "font-awesome";
+@import "font-awesome-sprockets";
 
 .well {
 	height: 250px;
@@ -22,4 +24,21 @@
 
 .center-it {
 	text-align: center;
+}
+
+.badge-notify{
+   background:red;
+   position:absolute;
+   top:0px;
+  }
+
+#nav {
+	background-color: black;
+	color: white;
+}
+
+h1 {
+	font-family: 'Pinyon Script', cursive;
+	font-weight: 400;
+	font-size: 70px;
 }

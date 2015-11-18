@@ -1,17 +1,22 @@
 <h1>My Cart</h1>
 
 <div>
-	<% @line_items.each do |line_item| %>
-		<ul>
-			<!-- name of product -->
-			<li><%= line_item.product.name %></li>
-			<!-- price of each product -->
-			<li><%= number_to_currency line_item.product.price %>/ea.</li>
-			<!-- amount of product -->
-			<li>Qty: <%= line_item.quantity %></li>
-			<!-- subtotal -->
-			<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
-		</ul>
+	<% if @line_items.count == 0 %>
+		<h3> There's nothing here yet. </h3>
+	<% else %>
+		<% @line_items.each do |line_item| %>
+			<ul>
+				<!-- name of product -->
+				<li><%= line_item.product.name %></li>
+				<!-- price of each product -->
+				<li><%= number_to_currency line_item.product.price %>/ea.</li>
+				<!-- amount of product -->
+				<li>Qty: <%= line_item.quantity %></li>
+				<!-- subtotal -->
+				<li>Subtotal: <%= number_to_currency line_item.line_item_total %></li>
+				<li><%= link_to "Remove from Cart", remove_from_cart_path(id: line_item.id) %></li>
+			</ul>
+		<% end %> 
 	<% end %> 
 </div>
 

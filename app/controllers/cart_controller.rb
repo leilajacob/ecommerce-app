@@ -49,4 +49,10 @@ class CartController < ApplicationController
 
   	LineItem.destroy_all
   end
+
+  def remove_from_cart
+  	LineItem.find(params[:id]).destroy
+
+  	redirect_to view_order_path
+  end
 end

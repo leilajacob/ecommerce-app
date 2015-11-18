@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
  before_filter :categories
  before_filter :brands
+ before_filter :line_items
 
   def categories
   	@categories = Category.all
@@ -21,5 +22,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :current_password, :name, :address, :state, :city, :zip, :admin) }
 
   end
+
+  def line_items
+    @line_items = LineItem.all
+  end
+
 end
 

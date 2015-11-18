@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default">
+<nav id="nav" class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -20,6 +20,7 @@
       </button>
 
       <%= link_to "Home", root_path, class: "navbar-brand" %>
+
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,22 +28,24 @@
       <ul class="nav navbar-nav">
         
 
-        <li class="dropdown">
+         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          	<% @categories.each do |cat| %>
-          		<li><%= link_to cat.name, by_category_path(cat_id: cat.id) %></li>
-          	<% end %>
+            <% @categories.each do |cat| %>
+              <li><%= link_to cat.name, by_category_path(cat_id: cat.id) %></li>
+            <% end %>
           </ul>
         </li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brands <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-          	<% @brands.each do |brand| %>
-          		<li><%= link_to brand, by_brand_path(brand: brand) %></li>
-          	<% end %>
-          </ul>
+
+
+        <li>
+          <%= link_to view_order_path do %>
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <% if @line_items.count != 0 %>
+              <span class="badge badge-notify"><%= @line_items.count %></span>
+            <% end %>
+          <% end %>
         </li>
 
 
